@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>질문 답변</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container-wrapper {
+            display: flex;
+            flex: 1;
+            max-width: 1200px;
+            margin: 20px auto; 
+            width: 100%;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar {
+            width: 250px;
+            padding: 20px 0;
+            border-right: 1px solid #eee;
+            flex-shrink: 0;
+        }
+
+        .sidebar h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 25px;
+            padding-left: 20px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar ul li a {
+            display: block;
+            padding: 12px 20px;
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar ul li a:hover {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .sidebar ul li a.active {
+            background-color: #e6f0f7; 
+            color: #97c0c0;
+            border-left-color: #97c0c0;
+            font-weight: bold;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px 40px;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .question-header h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .question-meta {
+            font-size: 0.9rem;
+            color: #888;
+            white-space: nowrap;
+            display: flex;
+            gap: 15px;
+        }
+
+        .answer-content {
+            padding: 25px 0;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            color: #444;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .back-button {
+            padding: 10px 20px;
+            border-radius: 999px;
+            border: 1px solid #ccc;
+            background-color: white;
+            color: #555;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, border-color 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .back-button:hover {
+            background-color: #f0f0f0;
+            border-color: #aaa;
+        }
+
+        @media (max-width: 992px) {
+            .container-wrapper {
+                flex-direction: column;
+                padding: 0 15px;
+            }
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding-bottom: 10px;
+            }
+            .sidebar h3 {
+                text-align: center;
+                padding-left: 0;
+                margin-bottom: 15px;
+            }
+            .sidebar ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 5px;
+            }
+            .sidebar ul li a {
+                padding: 8px 15px;
+                border-left: none;
+                border-bottom: 3px solid transparent;
+            }
+            .sidebar ul li a.active {
+                border-left-color: transparent;
+                border-bottom-color: #97c0c0;
+            }
+            .main-content {
+                padding: 20px 15px;
+            }
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            .question-meta {
+                flex-direction: column;
+                gap: 5px;
+                width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 15px 10px;
+            }
+            .question-header h2 {
+                font-size: 1.5rem;
+            }
+            .answer-content {
+                font-size: 1rem;
+            }
+            .back-button {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container-wrapper">
+        <aside class="sidebar">
+            <h3>고객센터</h3>
+            <ul>
+                <li><a href="#">고객센터 메인</a></li>
+                <li><a href="#" class="active">자주 묻는 질문</a></li>
+                <li><a href="#">공지/뉴스</a></li>
+                <li><a href="#">이메일 문의</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <div class="question-header">
+                <h2>Q. 아껴쓰자에 물품을 올릴 때 비용이 드나요?</h2>
+                <div class="question-meta">
+                    <span>등록일: 2025.06.10</span>
+                    <span>조회수: 123</span>
+                </div>
+            </div>
+
+            <div class="answer-content"> 
+                <p>
+                    나누장 '아껴쓰자' 페이지에 물품을 등록하는 것은 무료입니다. 저희는 자원 순환과 환경 보호라는 아나바다 운동의 가치를 실현하기 위해 사용자 여러분의 적극적인 참여를 장려하고 있습니다. 따라서, 물품을 등록하시거나 다른 사용자들과 물품을 교환하는 과정에서 어떠한 형태의 수수료나 비용도 청구하지 않습니다.
+                </p>
+                <p>
+                    아껴쓰자 서비스는 불필요한 소비를 줄이고, 이미 생산된 물품의 가치를 재발견하여 더 오래 사용될 수 있도록 돕는 데 중점을 두고 있습니다. 여러분이 아끼고 소중히 사용했던 물품들이 새로운 주인을 만나 다시 쓰이는 선순환 구조를 만들어가고자 합니다.
+                </p>
+                <p>
+                    다만, 물품 등록 시 인터넷 연결을 위한 데이터 사용료나 이미지를 업로드할 때 발생하는 아주 미미한 트래픽 비용 등은 사용자의 개별 통신 환경이나 계약에 따라 발생할 수 있으니 참고 부탁드립니다. 이는 일반적인 웹 서비스 사용 시 발생하는 기본 비용과 동일합니다.
+                </p>
+                <p>
+                    나누장은 투명하고 공정한 거래 환경을 제공하기 위해 최선을 다하고 있습니다. 만약 물품 등록 과정이나 이용 중에 궁금한 점, 또는 도움이 필요한 부분이 있다면 언제든지 저희 고객센터로 문의해주세요. 감사합니다.
+                </p>
+            </div>
+
+
+
+            <button class="back-button" onclick="window.history.back()">
+                &larr; 목록으로 돌아가기
+            </button>
+        </main>
+    </div>
+</body>
+</html>

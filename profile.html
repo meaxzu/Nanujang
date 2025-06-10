@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>프로필</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            padding: 40px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .profile-header-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .profile-image-container-lg {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .profile-image-container-lg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .profile-image-upload-icon-lg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s, opacity 0.3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .profile-image-container-lg:hover .profile-image-upload-icon-lg {
+            opacity: 1;
+            pointer-events: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        .profile-image-upload-icon-lg .upload-text {
+            font-size: 0.8rem;
+            line-height: 1;
+            margin-top: 2px;
+            font-weight: normal;
+        }
+
+        .profile-image-upload-input {
+            display: none;
+        }
+
+        .profile-details-small {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .profile-name-small {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px; 
+        }
+
+        .remaining-points { 
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px; 
+        }
+
+        .point-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .point-buttons button {
+            padding: 8px 18px;
+            border-radius: 999px;
+            border: 1px;
+            background-color: #97c0c0;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .point-buttons button:hover {
+            background-color: #5f8a8a;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section-tabs {
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 2px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .section-tabs button {
+            flex-grow: 1;
+            padding: 15px 0;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #888;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .section-tabs button.active {
+            color: #97c0c0;
+            border-bottom: 2px solid #97c0c0;
+        }
+
+        .section-tabs button:hover:not(.active) {
+            color: #97c0c0;
+        }
+
+        .content-section {
+            padding: 20px 0;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .item-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .item-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .item-info {
+            padding: 15px;
+        }
+
+        .item-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+            font-size: 1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-price {
+            color: #97c0c0;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .review-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 15px;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-header .profile-image-small {
+            width: 30px;
+            height: 30px;
+            margin-right: 10px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .review-header .profile-image-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .review-header .reviewer-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .review-text {
+            color: #555;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .no-content-message {
+            text-align: center;
+            color: #888;
+            padding: 50px 0;
+            font-size: 1.1rem;
+        }
+
+
+        @media (max-width: 992px) {
+            main {
+                padding: 30px;
+            }
+            .profile-header-section {
+                padding: 20px 0;
+            }
+            .profile-image-container-lg {
+                width: 90px;
+                height: 90px;
+                margin-bottom: 15px;
+            }
+             .profile-image-upload-icon-lg {
+                width: 45px;
+                height: 45px;
+                font-size: 1.8rem;
+            }
+            .profile-image-upload-icon-lg .upload-text {
+                font-size: 0.75rem;
+            }
+            .profile-name-small {
+                font-size: 1.6rem;
+                margin-bottom: 5px;
+            }
+            .remaining-points { 
+                font-size: 1rem;
+                margin-bottom: 10px;
+            }
+            .point-buttons {
+                flex-wrap: wrap;
+            }
+            .point-buttons button {
+                padding: 7px 15px;
+                font-size: 0.9rem;
+            }
+            .section-tabs button {
+                font-size: 1rem;
+                padding: 12px 0;
+            }
+            .item-grid {
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            }
+            .item-card img {
+                height: 120px;
+            }
+            .item-info {
+                padding: 10px;
+            }
+            .item-title {
+                font-size: 0.95rem;
+            }
+            .item-price {
+                font-size: 1rem;
+            }
+            .review-card {
+                padding: 15px;
+            }
+            .review-text {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+            .profile-header-section {
+                padding: 15px 0;
+                margin-bottom: 20px;
+            }
+            .profile-image-container-lg {
+                width: 80px;
+                height: 80px;
+            }
+            .profile-image-upload-icon-lg {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+            .profile-image-upload-icon-lg .upload-text {
+                font-size: 0.7rem;
+            }
+            .profile-name-small {
+                font-size: 1.4rem;
+                margin-bottom: 5px;
+            }
+            .remaining-points {
+                font-size: 0.9rem;
+                margin-bottom: 8px;
+            }
+            .point-buttons {
+                gap: 8px;
+            }
+            .point-buttons button {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+            .section-tabs button {
+                font-size: 0.95rem;
+                padding: 10px 0;
+            }
+            .item-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            .item-card img {
+                height: 100px;
+            }
+            .item-info {
+                padding: 8px;
+            }
+            .item-title {
+                font-size: 0.9rem;
+            }
+            .item-price {
+                font-size: 0.95rem;
+            }
+            .review-card {
+                padding: 12px;
+            }
+            .review-header .profile-image-small {
+                width: 25px;
+                height: 25px;
+            }
+            .review-header .reviewer-name {
+                font-size: 0.9rem;
+            }
+            .review-text {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="profile-header-section">
+            <div class="profile-image-container-lg">
+                <img id="profileImage" src="assets/프로필.png"/>
+                <label for="profileImageUpload" class="profile-image-upload-icon-lg">
+                    <span>+</span>
+                </label>
+                <input type="file" id="profileImageUpload" accept="image/*" class="profile-image-upload-input" />
+            </div>
+            <div class="profile-details-small">
+                <div class="profile-name-small">밍밍한 수박</div>
+                <div class="remaining-points">잔여 포인트: 1000 P</div>
+                <div class="point-buttons">
+                    <button>포인트 충전</button>
+                    <button>송금</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-tabs">
+            <button class="tab-button active" data-tab="products">상품</button>
+            <button class="tab-button" data-tab="reviews">후기</button>
+            <button class="tab-button" data-tab="wishes">찜</button>
+        </section>
+
+        <section class="content-section">
+            <div id="products" class="tab-content active">
+                <div class="item-grid">
+                    <div class="item-card">
+                        <img src="assets/10.png" alt="상품 이미지" />
+                        <div class="item-info">
+                            <div class="item-title">후드티</div>
+                            <div class="item-price">1000 P</div>
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <img src="assets/11.png" alt="상품 이미지" />
+                        <div class="item-info">
+                            <div class="item-title">기저귀</div>
+                            <div class="item-price">500 P</div>
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <img src="assets/12.png" alt="상품 이미지" />
+                        <div class="item-info">
+                            <div class="item-title">정품 케이블</div>
+                            <div class="item-price">300 P</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="reviews" class="tab-content">
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="profile-image-small">
+                            <img src="assets/프로필.png" alt="작성자 프로필" />
+                        </div>
+                        <div class="reviewer-name">강태현</div>
+                    </div>
+                    <p class="review-text">상태 좋은 상품 빠르게 보내주셔서 감사합니다! 친절한 거래였습니다.</p>
+                </div>
+                <div class="review-card">
+                    <div class="review-header">
+                        <div class="profile-image-small">
+                            <img src="assets/프로필.png" alt="작성자 프로필" />
+                        </div>
+                        <div class="reviewer-name">오시온</div>
+                    </div>
+                    <p class="review-text">포장도 꼼꼼하고 설명과 동일합니다. 만족스러운 거래였습니다.</p>
+                </div>
+            </div>
+
+            <div id="wishes" class="tab-content">
+                <div class="item-grid">
+                    <div class="item-card">
+                        <img src="assets/13.png" alt="찜한 상품 이미지" />
+                        <div class="item-info">
+                            <div class="item-title">캐릭터 무드등</div>
+                            <div class="item-price">800 P</div>
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <img src="assets/14.png" alt="찜한 상품 이미지" />
+                        <div class="item-info">
+                            <div class="item-title">유모차</div>
+                            <div class="item-price">3000 P</div>
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <img src="assets/15.png" alt="찜한 상품 이미지" />
+                        <div class="item-info">
+                            <div class="item-title">인어공주 퍼즐</div>
+                            <div class="item-price">700 P</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabContents = document.querySelectorAll('.tab-content');
+
+            tabButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    tabButtons.forEach(buttonItem => buttonItem.classList.remove('active'));
+                    button.classList.add('active');
+
+                    tabContents.forEach(contentItem => contentItem.classList.remove('active'));
+                    const targetTabId = button.dataset.tab;
+                    document.getElementById(targetTabId).classList.add('active');
+                });
+            });
+
+            document.getElementById('profileImageUpload').addEventListener('change', function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('profileImage').src = e.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

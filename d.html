@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>다시쓰자</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #91adc6;
+    }
+
+    .search-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      gap: 12px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      overflow: hidden;
+      background-color: #91adc6;
+      height: 50px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .search input {
+      flex: 1;
+      border: none;
+      padding: 0 20px;
+      font-size: 1rem;
+      outline: none;
+      height: 100%;
+    }
+
+    .search-btn {
+      padding: 0 24px;
+      border: none;
+      background: #91adc6;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      height: 100%;
+      transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+      background: #6c93ae;
+    }
+
+    .location-button {
+      height: 50px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #91adc6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .location-button:hover {
+      background-color: #6c93ae;
+    }
+
+    .my-home-button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #91adc6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .my-home-button:hover {
+      background-color: #6c93ae;
+    }
+
+    main {
+      padding: 20px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .popular-posts-section {
+      margin-top: 40px;
+    }
+
+    .popular-posts-section h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 25px;
+    }
+
+    .popular-posts-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .popular-post-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+      cursor: pointer;
+    }
+
+    .popular-post-card img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .popular-post-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+      color: white;
+      padding: 15px;
+      box-sizing: border-box;
+    }
+
+    .popular-post-rank {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: #91adc6;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+    }
+
+    .popular-post-summary {
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+
+    .section-divider {
+      border: 0;
+      height: 1px;
+      background-color: #eee;
+      margin: 60px 0;
+    }
+
+    .new-posts-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+
+    .new-posts-header h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #333;
+      margin: 0;
+    }
+
+    .write-post-button {
+      padding: 10px 20px;
+      border-radius: 999px;
+      border: none;
+      background-color: #91adc6;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .write-post-button:hover {
+      background-color: #6c93ae;
+    }
+
+    .new-post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .new-post-item {
+      display: flex;
+      gap: 20px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      align-items: flex-start;
+    }
+
+    .new-post-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .new-post-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .new-post-title:hover {
+      color: #91adc6;
+    }
+
+    .new-post-summary {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+
+    .new-post-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .new-post-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 992px) {
+      header {
+        padding: 15px 30px;
+      }
+      .search-area {
+        margin-right: 0;
+        max-width: 600px;
+      }
+      main {
+        padding: 20px 30px;
+      }
+      .popular-posts-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .popular-post-card img {
+        height: auto;
+        aspect-ratio: 1 / 1;
+      }
+      .new-post-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .new-post-image {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .logo {
+        text-align: center;
+      }
+      .search-area {
+        flex-direction: column;
+        width: 100%;
+        margin: 0 auto;
+        gap: 10px;
+      }
+      .location-button, .search {
+        width: 100%;
+        max-width: none;
+      }
+      .my-home-button {
+        width: 100%;
+        min-width: unset;
+      }
+      main {
+        padding: 15px 20px;
+      }
+      .popular-posts-grid {
+        grid-template-columns: 1fr;
+      }
+      .popular-post-card img {
+        height: auto;
+        aspect-ratio: 1 / 1;
+      }
+      .popular-post-rank {
+        width: 30px;
+        height: 30px;
+        font-size: 1rem;
+      }
+      .popular-post-overlay {
+        padding: 10px;
+      }
+      .popular-post-summary {
+        font-size: 0.85rem;
+      }
+      .section-divider {
+        margin: 40px 0;
+      }
+      .new-posts-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+      }
+      .write-post-button {
+        width: 100%;
+      }
+      .new-post-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .new-post-image {
+        width: 100%;
+        height: 180px;
+      }
+      .new-post-content {
+        align-items: center;
+      }
+      .new-post-title {
+        font-size: 1rem;
+      }
+      .new-post-summary {
+        font-size: 0.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="location.href='index.html'">다시쓰자</div>
+    <div class="search-area">
+      <button class="location-button" onclick="location.href='map.html'">내 동네 설정</button>
+      <div class="search">
+        <input type="text" placeholder="물건을 검색해보세요" />
+        <button class="search-btn">검색</button>
+      </div>
+    </div>
+    <button class="my-home-button" onclick="location.href='d_myhome.html'">마이 홈</button>
+  </header>
+
+  <main>
+    <section class="popular-posts-section">
+      <h2>인기글</h2>
+      <div class="popular-posts-grid">
+        <a href="d_text.html" class="popular-post-card">
+          <img src="assets/페트병화분.avif" alt="인기글 1" />
+          <div class="popular-post-rank">1</div>
+          <div class="popular-post-overlay">
+          <p class="popular-post-summary">쓰레기였던 페트병이 우리 집 포인트 인테리어가 됐습니다.</p>
+          </div>
+        </a>
+        <a href="#" class="popular-post-card">
+          <img src="assets/d4.jpeg" alt="인기글 2" />
+          <div class="popular-post-rank">2</div>
+          <div class="popular-post-overlay">
+            <p class="popular-post-summary">대나무 칫솔 한 번 써봤다가 플라스틱 다시 못 쓰겠어요.</p>
+          </div>
+        </a>
+        <a href="#" class="popular-post-card">
+          <img src="assets/d3.jpeg" alt="인기글 3" />
+          <div class="popular-post-rank">3</div>
+          <div class="popular-post-overlay">
+            <p class="popular-post-summary">영수증 하나 안 받았을 뿐인데 기분이 이렇게 다르다고요?</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="new-posts-section">
+      <div class="new-posts-header">
+        <h2>새롭게 올라온 글</h2>
+        <button class="write-post-button" onclick="location.href='writing.html'">글쓰기 +</button>
+      </div>
+
+      <div class="new-post-list">
+        <div class="new-post-item">
+          <div class="new-post-content">
+            <a href="#" class="new-post-title">옷장 정리하다 알게 된 ‘패션의 환경 비용’</a>
+            <p class="new-post-summary">한 번 입고 안 입는 옷들이 이렇게 많았는지 이번에야 알게 됐습니다.</p>
+          </div>
+          <div class="new-post-image">
+            <img src="assets/d5.jpeg" alt="새 글 이미지 1" />
+          </div>
+        </div>
+        <div class="new-post-item">
+          <div class="new-post-content">
+            <a href="#" class="new-post-title">일회용 컵 대신 텀블러 사용하기</a>
+            <p class="new-post-summary">커피 한 잔에도 책임이 따른다는 걸 텀블러를 쓰면서 처음 느꼈어요.</p>
+          </div>
+          <div class="new-post-image">
+            <img src="assets/d6.jpeg" alt="새 글 이미지 2" />
+          </div>
+        </div>
+        <div class="new-post-item">
+          <div class="new-post-content">
+            <a href="#" class="new-post-title">채식 식단, 나만의 환경 사랑 방식!</a>
+            <p class="new-post-summary">고기 한 끼 덜 먹는 것도 지구에겐 선물이라는 말을 아시나요?</p>
+          </div>
+          <div class="new-post-image">
+            <img src="assets/d7.jpeg" alt="새 글 이미지 3" />
+          </div>
+        </div>
+        <div class="new-post-item">
+          <div class="new-post-content">
+            <a href="#" class="new-post-title">차 대신 자전거로 출근해본 일주일</a>
+            <p class="new-post-summary">자전거로 출근했더니 출근길이 기다려지기 시작했습니다.</p>
+          </div>
+          <div class="new-post-image">
+            <img src="assets/d8.jpeg" alt="새 글 이미지 4" />
+          </div>
+        </div>
+        <div class="new-post-item">
+          <div class="new-post-content">
+            <a href="#" class="new-post-title">콘센트 하나 뽑았을 뿐인데 전기요금이 이렇게 된다고?</a>
+            <p class="new-post-summary">안 쓰는 전자제품 코드를 뽑는 것만으로도 전기가 꽤 절약된다고 합니다.</p>
+          </div>
+          <div class="new-post-image">
+            <img src="assets/d9.jpeg" alt="새 글 이미지 5" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+  </script>
+</body>
+</html>

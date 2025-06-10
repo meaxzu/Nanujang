@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>아껴쓰자</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #ed6956;
+    }
+
+    .search-area {
+      display: flex;
+      align-items: center;
+      justify-self: start;
+      margin-left: auto;
+      margin-right: 70px;
+      gap: 12px;
+      width: 100%;
+      max-width: 720px;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      overflow: hidden;
+      background-color: #ed6956;
+      height: 50px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .search input {
+      flex: 1;
+      border: none;
+      padding: 0 20px;
+      font-size: 1rem;
+      outline: none;
+      height: 100%;
+    }
+
+    .search-btn {
+      padding: 0 24px;
+      border: none;
+      background: #ed6956;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      height: 100%;
+      transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+      background: #d54f3a;
+    }
+
+    .location-button {
+      height: 50px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #ed6956;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .location-button:hover {
+      background-color: #d54f3a;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-self: end;
+    }
+
+    .buttons button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #ed6956;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .buttons button:hover {
+      background-color: #d54f3a;
+    }
+
+    .top3-bar {
+      background-color: #ffddd9;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ed6956;
+      height: 3em;
+      overflow: hidden;
+      position: relative;
+      width: 100vw;
+      left: 50%;
+      transform: translateX(-50%);
+      box-sizing: border-box;
+      text-align: left;
+    }
+
+    .top3-bar ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      animation: slideUp 9s linear infinite;
+    }
+
+    .top3-bar li {
+      height: 3em;
+      line-height: 3em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-left: 12px;
+    }
+
+    .top-label {
+      width: 4ch;
+      text-align: right;
+      color: #ed6956;
+      font-weight: 900;
+    }
+
+    .divider {
+      width: 2px;
+      height: 60%;
+      background-color: #ed6956;
+      margin: 0 10px;
+    }
+
+    .item-desc {
+      flex: 1;
+      color: #ed6956;
+      font-weight: 700;
+    }
+
+    @keyframes slideUp {
+      0%   { top: 0; }
+      30%  { top: 0; }
+      33%  { top: -3em; }
+      63%  { top: -3em; }
+      66%  { top: -6em; }
+      96%  { top: -6em; }
+      100% { top: 0; }
+    }
+
+    .filters {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 40px;
+      border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+    }
+
+    .filters .categories,
+    .filters .sort {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filters button {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid #ccc;
+      background-color: white;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .filters button:hover {
+      background-color: #ffddd9;
+      border-color: #ed6956;
+    }
+
+    .filters select {
+        padding: 8px 40px 8px 16px;
+        border-radius: 999px;
+        border: 1px solid #ccc;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: border-color 0.2s;
+        outline: none;
+        appearance: none;
+        background: url("data:image/svg+xml;utf8,<svg fill='%23ed6956' height='32' viewBox='0 0 24 24' width='32' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center;
+        background-color: white;
+        background-size: 20px;
+    }
+
+    .filters select:focus {
+        border-color: #ccc;
+        box-shadow: none;
+        outline: none;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      padding: 40px;
+    }
+
+    .product {
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      text-align: center;
+      cursor: pointer; 
+    }
+
+    .product img {
+      width: 100%;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 500;
+      margin: 12px 0 4px;
+    }
+
+    .product-price {
+      font-size: 0.95rem;
+      color: #ed6956;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 768px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 15px 20px;
+        gap: 15px;
+      }
+
+      .logo {
+        margin-bottom: 0;
+      }
+
+      .search-area {
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 0;
+        width: 100%;
+        max-width: none;
+      }
+
+      .search {
+        margin: 0;
+        width: 100%;
+        max-width: none;
+      }
+
+      .location-button {
+          margin: 0;
+          width: 100%;
+      }
+
+      .buttons {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">아껴쓰자</div>
+    <div class="search-area">
+      <button class="location-button" onclick="location.href='map.html'">내 동네 설정</button>
+      <div class="search">
+        <input type="text" placeholder="물건을 검색해보세요" />
+        <button class="search-btn">검색</button>
+      </div>
+    </div>
+    <div class="buttons">
+      <button>포인트</button>
+      <button onclick="location.href='profile.html'">내상점</button>
+      <button onclick="location.href='chat.html'">채팅</button>
+    </div>
+  </header>
+
+  <div class="top3-bar">
+    <ul>
+      <li><span class="top-label">TOP1</span><span class="divider"></span><span class="item-desc">12년 쓴 몽땅 연필</span></li>
+      <li><span class="top-label">TOP2</span><span class="divider"></span><span class="item-desc">10년 된 휴대폰</span></li>
+      <li><span class="top-label">TOP3</span><span class="divider"></span><span class="item-desc">8년 된 잠옷</span></li>
+    </ul>
+  </div>
+
+  <div class="filters">
+    <div class="categories">
+      <button>전체</button>
+      <button>의류</button>
+      <button>생활</button>
+      <button>가전</button>
+      <button>도서</button>
+      <button>기타</button>
+    </div>
+    <div class="sort">
+      <select id="sort-select">
+        <option value="latest">최신순</option>
+        <option value="popular">인기순</option>
+        <option value="low-price">가격낮은순</option>
+        <option value="high-price">가격높은순</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="product-grid">
+    <div class="product"><img src="assets/1.png" alt="상품1" /><div class="product-name">중고 크로스백</div><div class="product-price">2000 P</div></div>
+    <div class="product" onclick="location.href='a_goods.html'"><img src="assets/27.png" alt="상품1" /><div class="product-name">아디다스 져지</div><div class="product-price">20000 P</div></div>
+    <div class="product"><img src="assets/3.png" alt="상품3" /><div class="product-name">냄비</div><div class="product-price">1000 P</div></div>
+    <div class="product"><img src="assets/4.png" alt="상품4" /><div class="product-name">주전자</div><div class="product-price">800 P</div></div>
+    <div class="product"><img src="assets/5.png" alt="상품5" /><div class="product-name">배드민턴 라켓</div><div class="product-price">4000 P</div></div>
+    <div class="product"><img src="assets/6.png" alt="상품6" /><div class="product-name">띠부실 세트</div><div class="product-price">300 P</div></div>
+    <div class="product"><img src="assets/7.png" alt="상품7" /><div class="product-name">책상+의자 세트</div><div class="product-price">1000 P</div></div>
+    <div class="product"><img src="assets/8.png" alt="상품8" /><div class="product-name">색연필</div><div class="product-price">200 P</div></div>
+    <div class="product"><img src="assets/9.png" alt="상품9" /><div class="product-name">개복숭아 5kg</div><div class="product-price">5000 P</div></div>
+    <div class="product"><img src="assets/10.png" alt="상품10" /><div class="product-name">후드티</div><div class="product-price">1000 P</div></div>
+    <div class="product"><img src="assets/11.png" alt="상품11" /><div class="product-name">하기스 귀저기</div><div class="product-price">2000 P</div></div>
+    <div class="product"><img src="assets/12.png" alt="상품12" /><div class="product-name">정품 케이블</div><div class="product-price">600 P</div></div>
+  </div>
+  <script>
+    document.getElementById('sort-select').addEventListener('change', function () {
+      console.log('정렬 기준:', this.value);
+    });
+  </script>
+</body>
+</html>

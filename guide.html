@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>가이드</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            color: #333;
+            padding-top: 50px;
+            box-sizing: border-box;
+        }
+
+        .guide-container {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0; 
+            margin-bottom: 50px; 
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            color: #333;
+            margin-bottom: 50px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .guide-button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .guide-button {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-decoration: none;
+            color: #333;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .guide-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            border-color: #5f8a8a;
+        }
+
+        .guide-button h2 {
+            font-size: 2.2rem;
+            color: #97c0c0;
+            margin: 0 0 10px 0;
+            font-weight: bold;
+        }
+
+        .guide-button p {
+            font-size: 1.1rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 30px;
+            }
+            h1 {
+                font-size: 2.2rem;
+                margin-bottom: 40px;
+            }
+            .guide-container {
+                padding: 30px 15px;
+            }
+            .guide-button {
+                padding: 25px;
+            }
+            .guide-button h2 {
+                font-size: 1.8rem;
+            }
+            .guide-button p {
+                font-size: 1rem;
+            }
+            .guide-button-group {
+                gap: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding-top: 20px;
+            }
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 30px;
+            }
+            .guide-container {
+                padding: 20px 10px;
+            }
+            .guide-button {
+                padding: 20px;
+                border-radius: 10px;
+            }
+            .guide-button h2 {
+                font-size: 1.5rem;
+            }
+            .guide-button p {
+                font-size: 0.9rem;
+            }
+            .guide-button-group {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="guide-container">
+        <h1>처음 쓰는 사람들을 위한 가이드</h1>
+
+        <div class="guide-button-group">
+            <a href="guide2.html" class="guide-button">
+                <h2>사용 방법</h2>
+                <p>거래 방식에 따른 사용 방법에 관한 글이 적혀 있습니다. </p>
+            </a>
+
+            <a href="#" class="guide-button">
+                <h2>주의 사항</h2>
+                <p>안전한 거래를 위한 유의사항과 자주 발생하는 문제에 대한 글이 적혀있습니다.</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

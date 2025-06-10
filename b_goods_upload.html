@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>바꿔쓰자 - 상품 등록</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      gap: 20px;
+      width: 100%;
+      box-sizing: border-box;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #f3a9b0;
+      justify-self: start;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 12px;
+      justify-self: end;
+    }
+
+    .buttons button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #f3a9b0;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+    }
+
+    .buttons button:hover {
+      background-color: #d8969b;
+    }
+
+    .register-container {
+      flex-grow: 1;
+      width: 100%;
+      max-width: 1000px;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      box-sizing: border-box;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .form-group label {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.3s;
+      background-color: #f9f9f9;
+    }
+
+    .form-group select {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color 0.3s;
+      background-color: #f9f9f9;
+      appearance: none;
+      background: url("data:image/svg+xml;utf8,<svg fill='%23f3a9b0' height='32' viewBox='0 0 24 24' width='32' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>") no-repeat right 12px center;
+      background-size: 20px;
+      padding-right: 40px;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: #f3a9b0;
+      outline: none;
+      background-color: #f9f9f9;
+    }
+
+    .image-description-group {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .image-upload-area {
+      flex: 1;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .image-preview {
+      width: 100%;
+      height: 200px;
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      background-color: #f9f9f9;
+      color: #999;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    .image-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .image-upload-area input[type="file"] {
+      display: none;
+    }
+
+    .image-upload-label {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #f3a9b0;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: center;
+      transition: background-color 0.3s;
+    }
+
+    .image-upload-label:hover {
+      background-color: #d8969b;
+    }
+
+    .product-description-area {
+      flex: 2;
+      min-width: 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .product-description-area textarea {
+      min-height: calc(200px + 10px + 10px + 12px + 12px - 1px);
+      height: auto;
+      resize: vertical;
+      flex-grow: 1;
+    }
+
+    .submit-button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .submit-button {
+      padding: 15px 40px;
+      border-radius: 999px;
+      border: none;
+      background-color: #f3a9b0;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .submit-button:hover {
+      background-color: #d8969b;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 15px 20px;
+        grid-template-columns: auto 1fr auto;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .buttons button {
+        padding: 8px 12px;
+        font-size: 0.8rem;
+      }
+      .register-container {
+        padding: 30px 15px;
+        gap: 25px;
+      }
+      .image-description-group {
+        flex-direction: column;
+      }
+      .image-upload-area,
+      .product-description-area {
+        width: 100%;
+        min-width: unset;
+      }
+      .form-group label {
+        font-size: 1rem;
+      }
+      .form-group input, .form-group select, .form-group textarea {
+        font-size: 0.95rem;
+        padding: 10px 12px;
+      }
+      .product-description-area textarea {
+        min-height: 150px;
+        height: auto;
+      }
+      .submit-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 20px;
+      }
+      .logo, .buttons {
+        width: 100%;
+        text-align: center;
+        justify-self: unset;
+      }
+      .buttons {
+        justify-content: center;
+      }
+      .register-container {
+        padding: 20px 10px;
+        gap: 20px;
+      }
+      .form-group input, .form-group select, .form-group textarea {
+        padding: 8px 10px;
+      }
+      .image-preview {
+        height: 150px;
+      }
+      .image-upload-label {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+      .product-description-area textarea {
+        min-height: 120px;
+        height: auto;
+      }
+      .submit-button {
+        padding: 10px 25px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">바꿔쓰자</div>
+    <div></div>
+    <div class="buttons">
+      <button>포인트</button>
+      <button id="myShopButton">내상점</button>
+      <button id="chatButton">채팅</button>
+    </div>
+  </header>
+
+  <main class="register-container">
+    <div class="form-group">
+      <label for="productName">상품명</label>
+      <input type="text" id="productName" placeholder="상품명을 입력해주세요." />
+    </div>
+
+    <div class="form-group">
+      <label for="productCategory">상품 카테고리</label>
+      <select id="productCategory">
+        <option value="">카테고리를 선택해주세요</option>
+        <option value="clothing">의류</option>
+        <option value="living">생활</option>
+        <option value="electronics">가전</option>
+        <option value="books">도서</option>
+        <option value="etc">기타</option>
+      </select>
+    </div>
+
+    <div class="image-description-group">
+      <div class="image-upload-area">
+        <label>상품 이미지</label>
+        <div class="image-preview" id="imagePreview">
+          <span>이미지 업로드</span>
+        </div>
+        <input type="file" id="imageUpload" accept="image/*" />
+        <label for="imageUpload" class="image-upload-label">이미지 선택</label>
+      </div>
+
+      <div class="product-description-area">
+        <label for="productDescription">상품 설명</label>
+        <textarea id="productDescription" placeholder="상품에 대한 자세한 설명을 입력해주세요. (상태, 구성품, 거래 방식 등)"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="desiredCategory">내가 가지고 싶은 상품</label>
+      <select id="desiredCategory">
+        <option value="">카테고리를 선택해주세요</option>
+        <option value="clothing">의류</option>
+        <option value="living">생활</option>
+        <option value="electronics">가전</option>
+        <option value="books">도서</option>
+        <option value="etc">기타</option>
+      </select>
+    </div>
+
+    <div class="submit-button-container">
+      <button class="submit-button" id="submitButton">등록하기</button>
+    </div>
+  </main>
+
+  <script>
+    const imageUpload = document.getElementById('imageUpload');
+    const imagePreview = document.getElementById('imagePreview');
+
+    imageUpload.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          imagePreview.innerHTML = `<img src="${e.target.result}" alt="상품 이미지 미리보기" />`;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        imagePreview.innerHTML = `<span>이미지 업로드</span>`;
+      }
+    });
+
+    document.getElementById('myShopButton').addEventListener('click', () => {
+      window.location.href = 'profile.html';
+    });
+
+    document.getElementById('chatButton').addEventListener('click', () => {
+      window.location.href = 'chat.html';
+    });
+
+    document.getElementById('submitButton').addEventListener('click', () => {
+      window.location.href = 'b.html';
+    });
+  </script>
+</body>
+</html>

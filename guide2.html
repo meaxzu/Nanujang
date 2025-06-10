@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>아나바다 사용 가이드</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        main {
+            padding: 40px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .guide-header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 30px;
+        }
+
+        .guide-header h1 {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .guide-header p {
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .guide-category {
+            margin-bottom: 40px;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .category-header img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            margin-right: 20px;
+            border: 1px solid #ddd;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .category-header h2 {
+            font-size: 1.6rem;
+            color: #97c0c0;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .category-header h2 span {
+            color: #333;
+        }
+
+        .guide-content p {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 10px;
+        }
+
+        .guide-content .tip {
+            font-weight: bold;
+            color: #97c0c0;
+            margin-top: 15px;
+            display: block;
+        }
+
+        .guide-content ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .guide-content ul li {
+            font-size: 1rem;
+            color: #444;
+            margin-bottom: 8px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .guide-content ul li:before {
+            content: '•';
+            color: #97c0c0;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .process-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .process-step {
+            background-color: #eaf5f5;
+            border: 1px solid #97c0c0;
+            border-radius: 5px;
+            padding: 10px 15px;
+            margin: 5px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .process-arrow {
+            font-size: 1.5rem;
+            color: #97c0c0;
+            margin: 0 5px;
+        }
+
+        .final-message {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #eee;
+        }
+
+        .final-message p {
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .final-message p strong {
+            color: #97c0c0;
+        }
+        
+        @media (max-width: 992px) {
+            main {
+                padding: 30px;
+            }
+            .guide-header h1 {
+                font-size: 2rem;
+            }
+            .guide-header p {
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .category-header img {
+                width: 70px;
+                height: 70px;
+            }
+            .category-header h2 {
+                font-size: 1.4rem;
+            }
+            .guide-content p, .guide-content ul li {
+                font-size: 0.95rem;
+            }
+            .process-step {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .process-arrow {
+                font-size: 1.3rem;
+            }
+            .final-message p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                padding: 20px;
+            }
+            .guide-header h1 {
+                font-size: 1.8rem;
+            }
+            .guide-header p {
+                font-size: 0.9rem;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .category-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .category-header img {
+                margin-right: 0;
+                margin-bottom: 15px;
+                width: 60px;
+                height: 60px;
+            }
+            .category-header h2 {
+                font-size: 1.2rem;
+            }
+            .guide-content p, .guide-content ul li {
+                font-size: 0.9rem;
+            }
+            .process-flow {
+                flex-direction: column;
+            }
+            .process-arrow {
+                transform: rotate(90deg);
+                margin: 5px 0;
+            }
+            .process-step {
+                width: 80%;
+                margin: 5px auto;
+            }
+            .final-message p {
+                font-size: 0.95rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="guide-header">
+            <h1>아나바다 사용 가이드</h1>
+            <p>처음 사용하는 분들을 위한 카테고리별 이용 방법</p>
+        </section>
+
+        <section class="how-to-use">
+            <h2 class="section-title">아나바다 이용 방법</h2>
+
+            <div class="guide-category">
+                <div class="category-header">
+                    <img src="assets/아껴쓰자.jpeg" alt="아껴쓰자 아이콘" />
+                    <h2><span>아껴쓰자</span> (오래 아껴 쓴 물품 등록하기)</h2>
+                </div>
+                <div class="guide-content">
+                    <p><strong>사용 방법</strong></p>
+                    <p>내가 오래 아껴 쓴 물건 중 다른 사람에게 나누고 싶은 물건을 등록해요.</p>
+                    <ul>
+                        <li>물품 등록 시 사용 기간과 물건에 얽힌 이야기(선택) 를 적어주세요.</li>
+                        <li>→ 다른 사용자들이 물건의 의미를 이해하기 좋아요.</li>
+                        <li>사진은 실제 상태를 보여주는 깨끗한 사진을 올려주세요.</li>
+                    </ul>
+                    <p class="tip">Tip: 아껴 쓴 기간이 길수록 랭킹에 반영돼요 → 다른 사용자들의 관심도가 높아져요.</p>
+                    <div class="process-flow">
+                        <div class="process-step">물품 등록</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">사용 기간 & 이야기 작성</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">깨끗한 사진 업로드</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-category">
+                <div class="category-header">
+                    <img src="assets/나눠쓰자.jpeg" alt="나눠쓰자 아이콘" />
+                    <h2><span>나눠쓰자</span> (무료 나눔하기)</h2>
+                </div>
+                <div class="guide-content">
+                    <p><strong>사용 방법</strong></p>
+                    <p>쓰지 않지만 다른 사람에게 유용할 것 같은 물건을 무료 나눔하고 싶을 때 사용해요.</p>
+                    <ul>
+                        <li>물품 등록 시 상태 / 사용 가능 여부 / 나눔 조건(직거래, 택배 여부) 를 명확히 적어주세요.</li>
+                        <li>채팅을 통해 필요한 사람과 직접 연락 후 나눔 일정을 조율해요.</li>
+                    </ul>
+                    <p class="tip">Tip: 나눔 완료 후 게시글 상태를 '나눔 완료'로 변경해 주세요.</p>
+                    <div class="process-flow">
+                        <div class="process-step">물품 등록 (상태/조건 명시)</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">채팅으로 나눔 조율</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">나눔 완료 & 상태 변경</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-category">
+                <div class="category-header">
+                    <img src="assets/바꿔쓰자.jpeg" alt="바꿔쓰자 아이콘" />
+                    <h2><span>바꿔쓰자</span> (물물교환하기)</h2>
+                </div>
+                <div class="guide-content">
+                    <p><strong>사용 방법</strong></p>
+                    <p>내가 가진 물건을 다른 물건과 교환하고 싶을 때 사용해요.</p>
+                    <ul>
+                        <li>주고 싶은 물건 + 원하는 교환 물건을 명확하게 작성하세요.</li>
+                        <li>교환 조건 / 물건 상태 / 교환 가능 지역도 같이 적어주세요.</li>
+                        <li>채팅으로 교환 조건을 협의하고 → 안전한 장소에서 교환해요.</li>
+                    </ul>
+                    <p class="tip">Tip: 교환할 물건이 여러 개 가능하다면 "교환 가능 목록"을 적어두면 좋아요.</p>
+                    <div class="process-flow">
+                        <div class="process-step">물품 등록 (교환 조건 명시)</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">채팅으로 조건 협의</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">안전한 장소에서 교환</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="guide-category">
+                <div class="category-header">
+                    <img src="assets/다시쓰자.jpeg" alt="다시쓰자 아이콘" />
+                    <h2><span>다시쓰자</span> (재활용 아이디어 공유하기)</h2>
+                </div>
+                <div class="guide-content">
+                    <p><strong>사용 방법</strong></p>
+                    <p>재활용하거나 리폼한 물건 / 업사이클링 아이디어를 자유롭게 공유해요.</p>
+                    <ul>
+                        <li>사진과 함께 설명 / 만들기 팁도 같이 올려주세요.</li>
+                        <li>댓글로 서로 정보 교환 / 칭찬 / 질문 등을 자유롭게 해요.</li>
+                    </ul>
+                    <p class="tip">Tip: 제작 과정 사진이나 전/후 비교 사진을 올리면 반응이 좋아요.</p>
+                    <div class="process-flow">
+                        <div class="process-step">아이디어 & 물건 등록</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">사진 & 설명/팁 포함</div>
+                        <div class="process-arrow">→</div>
+                        <div class="process-step">댓글로 소통</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-message">
+            <p><strong>아나바다</strong>는 모두가 신뢰를 기반으로 따뜻하게 나누는 공간입니다.</p>
+            <p>작은 배려가 더 좋은 나눔 문화를 만듭니다.</p>
+            <p>→ 서로 예의와 배려를 지키며 즐겁게 사용해주세요!</p>
+        </section>
+    </main>
+</body>
+</html>

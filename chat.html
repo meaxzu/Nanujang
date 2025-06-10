@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>채팅</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            display: flex;
+            min-height: 100vh;
+            flex-direction: column;
+            align-items: stretch;
+            justify-content: flex-start;
+        }
+
+        main {
+            display: flex;
+            width: 100%;
+            margin: 0;
+            flex-grow: 1;
+            border: none;
+            box-shadow: none;
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+
+        .chat-list-section {
+            width: 25%;
+            min-width: 280px;
+            border-right: none;
+            background-color: #f8f8f8;
+            display: flex;
+            flex-direction: column;
+            padding: 0;
+        }
+
+        .chat-list-header {
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #97c0c0;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            height: auto;
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .chat-list-items-container {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-top: 10px;
+            padding-bottom: 20px;
+        }
+
+        .chat-list-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            gap: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .chat-list-item:hover, .chat-list-item.active {
+            background-color:#97c0c0;
+        }
+
+        .chat-list-item .profile-image-small {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid #ddd;
+        }
+
+        .chat-list-item .profile-image-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chat-list-item .chat-info {
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .chat-list-item .chat-info .sender-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.05rem;
+            margin-bottom: 3px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-list-item .chat-info .last-message {
+            color: #666;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .chat-window-section {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .chat-header {
+            padding: 13.5px 19px 13.5px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+
+        .chat-header .profile-image-small {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 1px solid #ddd;
+        }
+
+        .chat-header .profile-image-small img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .chat-header .chatting-with {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .chat-messages {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #fafafa;
+        }
+
+        .message-bubble {
+            display: flex;
+            margin-bottom: 15px;
+        }
+
+        .message-bubble.other {
+            justify-content: flex-start;
+        }
+
+        .message-bubble.me {
+            justify-content: flex-end;
+        }
+
+        .message-bubble .profile-image-tiny {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            margin-right: 10px;
+            border: 1px solid #eee;
+        }
+
+        .message-bubble .profile-image-tiny img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .message-content {
+            padding: 12px 18px;
+            border-radius: 20px;
+            max-width: 70%;
+            line-height: 1.5;
+            word-wrap: break-word;
+        }
+
+        .message-bubble.other .message-content {
+            background-color: #e0e0e0;
+            color: #333;
+            border-bottom-left-radius: 5px;
+        }
+
+        .message-bubble.me .message-content {
+            background-color: #97c0c0;
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .chat-input-area {
+            border-top: 1px solid #eee;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #fff;
+            flex-shrink: 0;
+        }
+
+        .chat-input-area input[type="text"] {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .chat-input-area input[type="text"]:focus {
+            border-color: #97c0c0;
+        }
+
+        .chat-input-area button {
+            padding: 10px 20px;
+            background-color: #97c0c0;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            flex-shrink: 0;
+        }
+
+        .chat-input-area button:hover {
+            background-color: #5f8a8a;
+        }
+
+        @media (max-width: 992px) {
+            main {
+                margin: 0;
+            }
+            .chat-list-section {
+                width: 35%;
+                min-width: 200px;
+                border-right: none;
+            }
+            .chat-window-section {
+                width: 65%;
+            }
+            .chat-list-header {
+                font-size: 1.5rem;
+                padding: 8px 15px;
+                border-bottom: none;
+            }
+            .chat-list-items-container {
+                padding-top: 8px;
+            }
+            .chat-list-item {
+                padding: 12px 15px;
+                gap: 10px;
+            }
+            .chat-list-item .profile-image-small {
+                width: 45px;
+                height: 45px;
+            }
+            .chat-list-item .chat-info .sender-name {
+                font-size: 1rem;
+            }
+            .chat-list-item .chat-info .last-message {
+                font-size: 0.85rem;
+            }
+            .chat-header {
+                padding: 12px 15px 12px;
+            }
+            .chat-header .profile-image-small {
+                width: 46px;
+                height: 46px;
+            }
+            .chat-header .chatting-with {
+                font-size: 1.1rem;
+            }
+            .chat-messages {
+                padding: 15px;
+            }
+            .message-bubble .profile-image-tiny {
+                width: 30px;
+                height: 30px;
+                margin-right: 8px;
+            }
+            .message-content {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+            }
+            .chat-input-area {
+                padding: 10px 15px;
+            }
+            .chat-input-area input[type="text"] {
+                padding: 10px 12px;
+                font-size: 0.9rem;
+            }
+            .chat-input-area button {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin: 0;
+            }
+            .chat-list-section {
+                width: 100%;
+                min-width: unset;
+                border-right: none;
+                border-bottom: 1px solid #eee;
+                padding: 0;
+            }
+            .chat-window-section {
+                width: 100%;
+            }
+            .chat-list-header {
+                font-size: 1.4rem;
+                padding: 6px 15px;
+                border-bottom: none;
+            }
+            .chat-list-items-container {
+                padding-top: 6px;
+            }
+            .chat-list-item {
+                padding: 10px 15px;
+            }
+            .chat-list-item .profile-image-small {
+                width: 40px;
+                height: 40px;
+            }
+            .chat-list-item .chat-info .sender-name {
+                font-size: 0.95rem;
+            }
+            .chat-list-item .chat-info .last-message {
+                font-size: 0.8rem;
+            }
+            .chat-header {
+                padding: 8px 15px 8px;
+            }
+            .chat-header .profile-image-small {
+                width: 40px;
+                height: 40px;
+            }
+            .chat-header .chatting-with {
+                font-size: 1rem;
+            }
+            .chat-messages {
+                padding: 10px;
+            }
+            .message-bubble {
+                margin-bottom: 10px;
+            }
+            .message-bubble .profile-image-tiny {
+                width: 28px;
+                height: 28px;
+                margin-right: 6px;
+            }
+            .message-content {
+                padding: 8px 12px;
+                font-size: 0.9rem;
+            }
+            .chat-input-area {
+                padding: 8px 10px;
+            }
+            .chat-input-area input[type="text"] {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+            .chat-input-area button {
+                padding: 6px 12px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <section class="chat-list-section">
+            <h2 class="chat-list-header">채팅</h2>
+            <div class="chat-list-items-container">
+                <div class="chat-list-item active">
+                    <div class="profile-image-small">
+                        <img src="assets/프로필.png" alt="상대방1 프로필" />
+                    </div>
+                    <div class="chat-info">
+                        <div class="sender-name">조용한판매자</div>
+                        <div class="last-message">네 알겠습니다. 내일 오후에 뵐게요!</div>
+                    </div>
+                </div>
+                <div class="chat-list-item">
+                    <div class="profile-image-small">
+                        <img src="assets/프로필.png" alt="상대방2 프로필" />
+                    </div>
+                    <div class="chat-info">
+                        <div class="sender-name">망고스무디</div>
+                        <div class="last-message">상품 잘 받았습니다. 감사합니다 :)</div>
+                    </div>
+                </div>
+                <div class="chat-list-item">
+                    <div class="profile-image-small">
+                        <img src="assets/프로필.png" alt="상대방3 프로필" />
+                    </div>
+                    <div class="chat-info">
+                        <div class="sender-name">이클립스</div>
+                        <div class="last-message">혹시 다른 색상도 있나요?</div>
+                    </div>
+                </div>
+                <div class="chat-list-item">
+                    <div class="profile-image-small">
+                        <img src="assets/프로필.png" alt="상대방4 프로필" />
+                    </div>
+                    <div class="chat-info">
+                        <div class="sender-name">민트향</div>
+                        <div class="last-message">아직 판매중인가요?</div>
+                    </div>
+                </div>
+                <div class="chat-list-item">
+                    <div class="profile-image-small">
+                        <img src="assets/프로필.png" alt="상대방5 프로필" />
+                    </div>
+                    <div class="chat-info">
+                        <div class="sender-name">복숭아소다</div>
+                        <div class="last-message">확인하고 연락드릴게요.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="chat-window-section">
+            <div class="chat-header">
+                <div class="profile-image-small">
+                    <img src="assets/프로필.png" alt="김민준 프로필" />
+                </div>
+                <div class="chatting-with">조용한판매자</div>
+            </div>
+
+            <div class="chat-messages">
+                <div class="message-bubble other">
+                    <div class="profile-image-tiny">
+                        <img src="assets/프로필.png" alt="상대방 프로필" />
+                    </div>
+                    <div class="message-content">안녕하세요! 아디다스 져지 문의드립니다.</div>
+                </div>
+                <div class="message-bubble other">
+                    <div class="profile-image-tiny">
+                        <img src="assets/프로필.png" alt="상대방 프로필" />
+                    </div>
+                    <div class="message-content">혹시 지금 보러 갈 수 있을까요?</div>
+                </div>
+
+                <div class="message-bubble me">
+                    <div class="message-content">네 안녕하세요. 지금은 어렵고 오후 3시 이후나 내일은 가능합니다.</div>
+                </div>
+                <div class="message-bubble me">
+                    <div class="message-content">언제쯤 오시면 편하실까요?</div>
+                </div>
+
+                <div class="message-bubble other">
+                    <div class="profile-image-tiny">
+                        <img src="assets/프로필.png" alt="상대방 프로필" />
+                    </div>
+                    <div class="message-content">내일 오후 2시쯤 가능할까요?</div>
+                </div>
+                 <div class="message-bubble me">
+                    <div class="message-content">네 내일 오후 2시에 뵙겠습니다!</div>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <input type="text" placeholder="메시지를 입력하세요..." />
+                <button>보내기</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

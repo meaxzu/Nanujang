@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>오프라인 행사</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            color: #333;
+            padding-top: 30px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 95%;
+            padding: 20px 0;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .search-bar {
+            width: 100%;
+            max-width: 700px;
+            display: flex;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .search-bar input {
+            flex-grow: 1;
+            padding: 12px 20px;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+
+        .search-bar button {
+            background-color: #97c0c0;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.2s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #5f8a8a;
+        }
+
+        .carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            background-color: #fff;
+            padding: 20px 0;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            gap: 20px; 
+            padding: 0 20px; 
+        }
+
+        .carousel-item {
+            width: calc((100% - (2 * 20px) - (2 * 20px)) / 3); 
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        .carousel-item a {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            aspect-ratio: 1 / 1.414;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover; 
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(151, 192, 192, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            border-radius: 50%;
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 0.2s ease;
+        }
+
+        .carousel-control:hover {
+            opacity: 1;
+        }
+
+        .carousel-control.prev {
+            left: 10px;
+        }
+
+        .carousel-control.next {
+            right: 10px;
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                width: 95%;
+                padding: 15px 0;
+                gap: 20px;
+            }
+            .carousel-item {
+                width: calc((100% - (2 * 20px) - (1 * 20px)) / 2); 
+            }
+            .carousel-wrapper {
+                padding: 15px 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 20px;
+            }
+            .container {
+                width: 100%;
+                padding: 15px 10px;
+                gap: 15px;
+            }
+            .search-bar {
+                max-width: 100%;
+            }
+            .search-bar input {
+                padding: 10px 15px;
+            }
+            .search-bar button {
+                padding: 10px 15px;
+            }
+            .carousel-item {
+                width: calc(100% - (2 * 20px)); 
+            }
+            .carousel-wrapper {
+                padding: 10px 0;
+            }
+            .carousel-control {
+                padding: 8px 12px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" placeholder="행사를 검색해 보세요..." />
+            <button>검색</button>
+        </div>
+
+        <div class="carousel-wrapper">
+            <div class="carousel-inner" id="carouselInner">
+                <div class="carousel-item">
+                    <a href="https://www.cjywca.or.kr/main/sub.html?boardID=www27&num=3460&Mode=view" target="_blank">
+                        <img src="assets/p1.jpg" alt="행사 포스터 1" />
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://50plus.or.kr/nwc/detail.do?id=26050430" target="_blank">
+                        <img src="assets/p2.jpg" alt="행사 포스터 2" />
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://www.gunsan.go.kr/main/m149/view/1221463?s_idx=123" target="_blank">
+                        <img src="assets/p3.jpg" alt="행사 포스터 3" />
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://lib.gimhae.go.kr/00290/00309.web?amode=view&idx=139729&gcode=3046&" target="_blank">
+                        <img src="assets/p4.jpg" alt="행사 포스터 4" />
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://www.ydp.go.kr/www/selectBbsNttView.do?bbsNo=40&nttNo=372952&key=2848" target="_blank">
+                        <img src="assets/p5.jpg" alt="행사 포스터 5" />
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <a href="https://www.gangnam.go.kr/office/longlearn/board/longlearn_11/1008/view.do?mid=longlearn_institute_news" target="_blank">
+                        <img src="assets/p6.jpg" alt="행사 포스터 6" />
+                    </a>
+                </div>
+            </div>
+            <button class="carousel-control prev" onclick="moveCarousel(-1)">&lt;</button>
+            <button class="carousel-control next" onclick="moveCarousel(1)">&gt;</button>
+        </div>
+    </div>
+
+    <script>
+        const carouselInner = document.getElementById('carouselInner');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        const totalItems = carouselItems.length;
+        let currentIndex = 0;
+
+        function updateCarousel() {
+            let itemsPerPage;
+            if (window.innerWidth <= 768) {
+                itemsPerPage = 1;
+            } else if (window.innerWidth <= 992) {
+                itemsPerPage = 2;
+            } else {
+                itemsPerPage = 3;
+            }
+
+            if (currentIndex < 0) {
+                currentIndex = 0;
+            } else if (currentIndex > totalItems - itemsPerPage) {
+                currentIndex = totalItems - itemsPerPage;
+            }
+            
+            const itemWidth = carouselItems[0].offsetWidth; 
+            carouselInner.style.transform = `translateX(${-currentIndex * (itemWidth + (window.innerWidth > 768 ? 20 : 0))}px)`; /* 아이템 너비 + 갭을 함께 이동 */
+        }
+
+        function moveCarousel(direction) {
+            currentIndex += direction;
+            updateCarousel();
+        }
+
+        window.addEventListener('load', updateCarousel);
+        window.addEventListener('resize', updateCarousel);
+    </script>
+</body>
+</html>

@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>다시쓰자 - 마이 홈</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #91adc6;
+      flex-shrink: 0;
+    }
+
+    .more-button {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #333;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.2s;
+    }
+
+    .more-button:hover {
+      color: #91adc6;
+    }
+
+    main {
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .profile-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 0;
+      text-align: center;
+    }
+
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .profile-image-container {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 25px;
+      border: 2px solid #91adc6;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .profile-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-image-upload-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .profile-image-container:hover .profile-image-upload-icon {
+      opacity: 1;
+      pointer-events: auto;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .profile-image-upload-icon .upload-text {
+      font-size: 0.9rem;
+      display: block;
+      line-height: 1.2;
+    }
+    
+    .profile-image-upload-input {
+      display: none;
+    }
+
+    .profile-name {
+      font-size: 3.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .follow-stats {
+      font-size: 1.5rem;
+      color: #666;
+      margin-bottom: 20px;
+    }
+
+    .follow-stats span {
+      font-weight: bold;
+      color: #91adc6;
+    }
+
+    .profile-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .profile-buttons button {
+      padding: 12px 25px;
+      border-radius: 999px;
+      border: 2px solid #91adc6;
+      background-color: white;
+      color: #91adc6;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: all 0.3s;
+      white-space: nowrap;
+    }
+
+    .profile-buttons button:hover {
+      background-color: #91adc6;
+      color: white;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+    
+    .section-divider {
+      border: 0;
+      height: 1px;
+      background-color: #eee;
+      margin: 60px 0;
+    }
+
+    .all-posts-heading {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .user-post-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .user-post-item {
+      display: flex;
+      gap: 20px;
+      padding: 15px;
+      border: 1px solid #eee;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+      align-items: flex-start;
+    }
+
+    .user-post-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .user-post-title {
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .user-post-title:hover {
+      color: #91adc6;
+    }
+
+    .user-post-summary {
+      font-size: 0.9rem;
+      color: #666;
+      line-height: 1.4;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+    }
+
+    .user-post-image {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .user-post-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 992px) {
+      header {
+        padding: 15px 30px;
+      }
+      main {
+        padding: 30px;
+      }
+      .profile-section {
+        padding: 40px 0;
+      }
+      .profile-image-container {
+        width: 150px;
+        height: 150px;
+      }
+      .profile-image-upload-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.8rem;
+      }
+      .profile-image-upload-icon .upload-text {
+        font-size: 0.8rem;
+      }
+      .profile-name {
+        font-size: 3rem;
+      }
+      .follow-stats {
+        font-size: 1.3rem;
+      }
+      .profile-buttons button {
+        padding: 10px 20px;
+        font-size: 1rem;
+      }
+      .section-divider {
+        margin: 50px 0;
+      }
+      .all-posts-heading {
+        font-size: 1.8rem;
+        text-align: center;
+      }
+      .user-post-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .user-post-image {
+        width: 100%;
+        height: 200px;
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 20px;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .more-button {
+        font-size: 1rem;
+      }
+      main {
+        padding: 20px;
+      }
+      .profile-section {
+        padding: 30px 0;
+      }
+      .profile-image-container {
+        width: 120px;
+        height: 120px;
+      }
+      .profile-image-upload-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
+      }
+      .profile-image-upload-icon .upload-text {
+        font-size: 0.7rem;
+      }
+      .profile-name {
+        font-size: 2.5rem;
+      }
+      .follow-stats {
+        font-size: 1.2rem;
+      }
+      .profile-buttons {
+        gap: 10px;
+      }
+      .profile-buttons button {
+        padding: 8px 15px;
+        font-size: 0.95rem;
+        border-width: 1px;
+      }
+      .section-divider {
+        margin: 40px 0;
+      }
+      .all-posts-heading {
+        font-size: 1.5rem;
+        text-align: center;
+      }
+      .user-post-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .user-post-image {
+        width: 100%;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">다시쓰자</div>
+    <button class="more-button">더보기</button>
+  </header>
+
+  <main>
+    <section class="profile-section">
+      <div class="profile-info">
+        <div class="profile-image-container">
+          <img id="profileImage" src="assets/프로필.png" class="profile-image" />
+          <label for="profileImageUpload" class="profile-image-upload-icon">
+            <span class="upload-text">+</span>
+          </label>
+          <input type="file" id="profileImageUpload" accept="image/*" class="profile-image-upload-input" />
+        </div>
+        <div class="profile-details">
+          <div class="profile-name">밍밍한 수박</div>
+          <div class="follow-stats">
+            팔로워 <span>123</span>명 | 팔로잉 <span>45</span>명
+          </div>
+        </div>
+      </div>
+      <div class="profile-buttons">
+        <button>홈 편집</button>
+        <button id="likedPostsButton">관심 글</button>
+        <button>내 채팅</button>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
+    <section class="user-posts-section">
+      <h2 class="all-posts-heading">전체 글</h2>
+      <div class="user-post-list">
+        <div class="user-post-item">
+          <div class="user-post-content">
+            <a href="#" class="user-post-title">파 하나로 시작하는 친환경 삶, 파테크 도전기!</a>
+            <p class="user-post-summary">파를 다시 키우는 '파테크'는 버려지는 식자재를 재활용해 식비를 아끼고, 환경까지 생각할 수 있는 똑똑한 생활 습관입니다.</p>
+          </div>
+          <div class="user-post-image">
+            <img src="assets/d2.jpg" alt="사용자 글 이미지 1" />
+          </div>
+        </div>
+        <div class="user-post-item">
+          <div class="user-post-content">
+            <a href="#" class="user-post-title">헷갈리는 분리수거, 이젠 정확하게</a>
+            <p class="user-post-summary">분리수거는 더 이상 선택이 아닌 필수입니다. 하지만 플라스틱, 종이, 비닐, 유리 등 제대로 구분하기 어려운 경우가 많죠.</p>
+          </div>
+          <div class="user-post-image">
+            <img src="assets/d1.png" alt="사용자 글 이미지 2" />
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <script>
+    document.getElementById('profileImageUpload').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          document.getElementById('profileImage').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    document.getElementById('likedPostsButton').addEventListener('click', function() {
+      window.location.href = 'like.html'; 
+    });
+  </script>
+</body>
+</html>

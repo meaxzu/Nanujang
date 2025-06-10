@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>다시쓰자 - 게시글</title>
+    <style>
+        body {
+            font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+            background-color: white;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #ddd;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #91adc6;
+            flex-shrink: 0;
+        }
+
+        .more-button {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: #333;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.2s;
+        }
+
+        .more-button:hover {
+            color: #91adc6;
+        }
+
+        main {
+            padding: 40px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .post-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .author-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            justify-content: space-between;
+        }
+
+        .author-details {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-image-container {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+
+        .profile-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .author-name {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .post-date {
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .more-options-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #555;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .more-options-button:hover {
+            color: #91adc6;
+        }
+
+        .section-divider {
+            border: 0;
+            height: 1px;
+            background-color: #eee;
+            margin: 30px 0;
+        }
+
+        .post-content {
+            line-height: 1.8;
+            color: #444;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .post-content p, .post-content h3, .post-content ul, .post-content ol {
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+            max-width: 800px;
+        }
+
+        .post-content ul, .post-content ol {
+            display: inline-block;
+            text-align: left;
+        }
+
+        .post-content img {
+            max-width: 80%;
+            height: auto;
+            display: block;
+            margin: 20px auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        @media (max-width: 992px) {
+            header {
+                padding: 15px 30px;
+            }
+            main {
+                padding: 30px;
+            }
+            .post-title {
+                font-size: 2rem;
+            }
+            .author-info {
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 15px;
+            }
+            .more-options-button {
+                align-self: flex-end;
+                margin-top: -40px;
+            }
+            .post-content {
+                font-size: 1rem;
+            }
+            .post-content p, .post-content h3, .post-content ul, .post-content ol {
+                max-width: 100%;
+                text-align: left;
+            }
+            .post-content ul, .post-content ol {
+                display: block;
+            }
+            .post-content img {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 10px 20px;
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .more-button {
+                font-size: 1rem;
+            }
+            main {
+                padding: 20px;
+            }
+            .post-title {
+                font-size: 1.8rem;
+                margin-bottom: 20px;
+            }
+            .author-info {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 15px;
+            }
+            .more-options-button {
+                margin-top: 0;
+            }
+            .profile-image-container {
+                width: 35px;
+                height: 35px;
+            }
+            .author-name {
+                font-size: 0.95rem;
+            }
+            .post-date {
+                font-size: 0.8rem;
+            }
+            .section-divider {
+                margin: 20px 0;
+            }
+            .post-content {
+                font-size: 0.95rem;
+            }
+            .post-content p, .post-content h3, .post-content ul, .post-content ol {
+                max-width: 100%;
+                text-align: left;
+            }
+            .post-content ul, .post-content ol {
+                display: block;
+            }
+            .post-content img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">다시쓰자</div>
+        <button class="more-button">더보기</button>
+    </header>
+
+    <main>
+        <h1 class="post-title">페트병으로 화분 만들기</h1>
+
+        <div class="author-info">
+            <div class="author-details">
+                <div class="profile-image-container">
+                    <img src="assets/프로필.png" alt="프로필 이미지" />
+                </div>
+                <div>
+                    <div class="author-name">봉숭아물들이기</div>
+                    <div class="post-date">2024년 5월 15일</div>
+                </div>
+            </div>
+            <button class="more-options-button">&#x22EE;</button> </div>
+
+        <hr class="section-divider" />
+
+        <div class="post-content">
+            <p>안녕하세요! 오늘은 집에서 쉽게 구할 수 있는 페트병을 활용하여 예쁜 화분을 만드는 방법을 소개하려고 합니다. 버려지는 페트병을 재활용하여 환경 보호에도 기여하고, 나만의 개성 있는 화분을 만들 수 있다는 장점이 있습니다.</p>
+
+            <h3>준비물</h3>
+                <p>페트병 (원하는 크기와 모양), 칼 또는 가위, 페인트, 마커, 색지 등 (장식 재료), 흙, 씨앗 또는 모종, 송곳 또는 드릴 (배수 구멍 뚫기)</p>
+
+            <h3>만드는 과정</h3>
+            <ol>
+                <li><strong>페트병 자르기:</strong> 원하는 높이로 페트병의 윗부분을 잘라냅니다. 이때, 자른 단면이 날카롭지 않도록 조심하거나 테이프로 감싸주세요.</li>
+                <li><strong>배수 구멍 뚫기:</strong> 페트병 바닥에 물이 빠져나갈 수 있도록 송곳이나 드릴을 이용하여 몇 개의 작은 구멍을 뚫어줍니다. 배수는 식물 성장에 매우 중요합니다.</li>
+                <li><strong>페트병 꾸미기:</strong> 이제 여러분의 창의력을 발휘할 시간입니다! 페인트로 그림을 그리거나, 색지를 오려 붙이거나, 마커로 패턴을 그려서 페트병을 예쁘게 장식해 보세요.</li>
+                <li>
+                    <strong>흙 채우기:</strong> 장식이 완료된 페트병에 흙을 채워줍니다. 너무 꽉 채우기보다는 씨앗이나 모종을 심을 공간을 남겨두는 것이 좋습니다.
+                    <img src="assets/페트병화분.avif" alt="페트병에 흙 채우기" />
+                </li>
+                <li><strong>씨앗 또는 모종 심기:</strong> 흙 가운데를 살짝 파고 씨앗을 심거나 모종을 조심스럽게 옮겨 심어줍니다. 씨앗의 경우, 씨앗 봉투에 적힌 심는 깊이를 참고하세요.</li>
+                <li><strong>물 주기:</strong> 씨앗이나 모종을 심은 후에는 흙이 촉촉해지도록 물을 충분히 줍니다.</li>
+            </ol>
+
+            <p>이렇게 간단한 과정을 통해 페트병이 멋진 화분으로 변신했습니다! 이제 햇볕이 잘 드는 곳에 두고 정성껏 물을 주면 예쁜 식물이 자라는 것을 관찰할 수 있습니다. 여러분도 한번 시도해 보세요!</p>
+
+            <p>다음에는 더욱 유익하고 재미있는 DIY 정보로 돌아오겠습니다. 감사합니다!</p>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>글쓰기</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #91adc6;
+      cursor: pointer;
+    }
+
+    .search-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      gap: 12px;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .search {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 999px;
+      overflow: hidden;
+      background-color: #91adc6;
+      height: 50px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    .search input {
+      flex: 1;
+      border: none;
+      padding: 0 20px;
+      font-size: 1rem;
+      outline: none;
+      height: 100%;
+    }
+
+    .search-btn {
+      padding: 0 24px;
+      border: none;
+      background: #91adc6;
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      cursor: pointer;
+      height: 100%;
+      transition: background 0.3s;
+    }
+
+    .search-btn:hover {
+      background: #6c93ae;
+    }
+
+    .location-button {
+      height: 50px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #91adc6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .location-button:hover {
+      background-color: #6c93ae;
+    }
+
+    .my-home-button {
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      background-color: #91adc6;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.3s;
+      white-space: nowrap;
+      min-width: 120px;
+      text-align: center;
+    }
+
+    .my-home-button:hover {
+      background-color: #6c93ae;
+    }
+
+    main {
+      flex: 1;
+      padding: 40px 40px;
+      max-width: 800px;
+      margin: 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .write-post-section h2 {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 25px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 15px 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      box-sizing: border-box;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #91adc6;
+      box-shadow: 0 0 8px rgba(145, 173, 198, 0.4);
+    }
+
+    .form-group textarea {
+      min-height: 200px;
+      resize: vertical;
+    }
+
+    .image-upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 10px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.3s;
+      margin-bottom: 25px;
+      position: relative; /* Added for image preview positioning */
+      min-height: 150px; /* Ensure enough space for text and some previews */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .image-upload-area:hover {
+      border-color: #91adc6;
+    }
+
+    .image-upload-area p {
+      font-size: 1rem;
+      color: #666;
+      margin: 0;
+    }
+
+    .image-preview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 15px; /* Pushes images below the text */
+        justify-content: flex-start;
+        width: 100%; /* Take full width of parent */
+    }
+
+    .image-preview {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        border: 1px solid #eee;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .image-preview img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .remove-image-button {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        font-size: 1rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .buttons-group {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .buttons-group .cancel-button,
+    .buttons-group .submit-button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .buttons-group .cancel-button {
+      background-color: #ccc;
+      color: #555;
+    }
+
+    .buttons-group .cancel-button:hover {
+      background-color: #bbb;
+    }
+
+    .buttons-group .submit-button {
+      background-color: #91adc6;
+      color: white;
+      box-shadow: none;
+    }
+
+    .buttons-group .submit-button:hover {
+      background-color: #6c93ae;
+    }
+
+    @media (max-width: 992px) {
+      header {
+        padding: 15px 30px;
+      }
+      .search-area {
+        margin-right: 0;
+        max-width: 600px;
+      }
+      main {
+        padding: 30px 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        grid-template-columns: 1fr;
+        gap: 15px;
+      }
+      .logo {
+        text-align: center;
+      }
+      .search-area {
+        flex-direction: column;
+        width: 100%;
+        margin: 0 auto;
+        gap: 10px;
+      }
+      .location-button, .search {
+        width: 100%;
+        max-width: none;
+      }
+      .my-home-button {
+        width: 100%;
+        min-width: unset;
+      }
+      main {
+        padding: 20px 20px;
+      }
+      .write-post-section h2 {
+        font-size: 1.7rem;
+      }
+      .buttons-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      .buttons-group .cancel-button,
+      .buttons-group .submit-button {
+        width: 100%;
+      }
+      .image-upload-area {
+        min-height: 120px;
+      }
+      .image-preview-container {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="location.href='index.html'">다시쓰자</div>
+    <div class="search-area">
+      <button class="location-button" onclick="location.href='map.html'">내 동네 설정</button>
+      <div class="search">
+        <input type="text" placeholder="물건을 검색해보세요" />
+        <button class="search-btn">검색</button>
+      </div>
+    </div>
+    <button class="my-home-button" onclick="location.href='d_myhome.html'">마이 홈</button>
+  </header>
+
+  <main>
+    <section class="write-post-section">
+      <h2>새 글쓰기</h2>
+
+      <div class="form-group">
+        <label for="post-title">제목</label>
+        <input type="text" id="post-title" placeholder="제목을 입력하세요" />
+      </div>
+
+      <div class="form-group">
+        <label for="post-content">내용</label>
+        <textarea id="post-content" placeholder="내용을 입력하세요"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>사진 첨부</label>
+        <div class="image-upload-area" id="image-upload-area" onclick="document.getElementById('file-input').click()">
+          <p>사진을 드래그하거나 클릭하여 추가하세요</p>
+          <input type="file" id="file-input" accept="image/*" multiple style="display: none;" />
+          <div id="image-preview-container" class="image-preview-container"></div>
+        </div>
+      </div>
+
+      <div class="buttons-group">
+        <button class="cancel-button" onclick="window.location.href='d.html'">취소</button>
+        <button class="submit-button" onclick="submitPost()">작성 완료</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const imageFiles = [];
+    const fileInput = document.getElementById('file-input');
+    const imageUploadArea = document.getElementById('image-upload-area');
+    const imagePreviewContainer = document.getElementById('image-preview-container');
+
+    fileInput.addEventListener('change', (event) => {
+      handleFiles(event.target.files);
+    });
+
+    imageUploadArea.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      imageUploadArea.style.borderColor = '#91adc6';
+    });
+
+    imageUploadArea.addEventListener('dragleave', (event) => {
+      event.preventDefault();
+      imageUploadArea.style.borderColor = '#ddd';
+    });
+
+    imageUploadArea.addEventListener('drop', (event) => {
+      event.preventDefault();
+      imageUploadArea.style.borderColor = '#ddd';
+      handleFiles(event.dataTransfer.files);
+    });
+
+    function handleFiles(files) {
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!file.type.startsWith('image/')) { continue }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const imgUrl = e.target.result;
+          const imgWrapper = document.createElement('div');
+          imgWrapper.className = 'image-preview';
+          imgWrapper.innerHTML = `
+            <img src="${imgUrl}" alt="미리보기" />
+            <button class="remove-image-button" onclick="removeImage(this, '${imgUrl}')">&times;</button>
+          `;
+          imagePreviewContainer.appendChild(imgWrapper);
+          imageFiles.push({ file, imgUrl, element: imgWrapper });
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function removeImage(button, imgUrl) {
+      const imgWrapper = button.parentNode;
+      imagePreviewContainer.removeChild(imgWrapper);
+      const index = imageFiles.findIndex(item => item.imgUrl === imgUrl);
+      if (index > -1) {
+        imageFiles.splice(index, 1);
+      }
+    }
+
+    function submitPost() {
+      window.location.href = 'd_text.html';
+    }
+
+    document.querySelector('.logo').addEventListener('click', function() {
+      location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

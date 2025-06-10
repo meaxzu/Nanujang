@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>관심 글</title>
+  <style>
+    body {
+      font-family: 'Apple SD Gothic Neo', sans-serif, Arial;
+      background-color: white;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      border-bottom: 1px solid #ddd;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #91adc6;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+
+    .more-button {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: #333;
+      cursor: pointer;
+      padding: 5px 10px;
+      transition: color 0.2s;
+    }
+
+    .more-button:hover {
+      color: #91adc6;
+    }
+
+    main {
+      padding: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      justify-content: center;
+    }
+
+    .category-card {
+      background-color: #fff;
+      border: 1px solid #eee;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+    }
+
+    .category-image-container {
+      width: 100%;
+      padding-top: 100%;
+      position: relative;
+      overflow: hidden;
+      background-color: #f0f0f0; 
+    }
+
+    .category-image-container img {
+      position: absolute;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .category-image-container.two-images img:nth-child(1) {
+      width: 50%;
+      height: 50%; 
+      top: 0;
+      left: 0;
+    }
+    .category-image-container.two-images img:nth-child(2) {
+      width: 50%;
+      height: 50%; 
+      top: 0;
+      left: 50%;
+    }
+    
+    .category-image-container.two-images img:nth-child(n+3) {
+        display: none;
+    }
+
+    .category-image-container.four-images img:nth-child(1) {
+      width: 50%;
+      height: 50%;
+      top: 0;
+      left: 0;
+    }
+    .category-image-container.four-images img:nth-child(2) {
+      width: 50%;
+      height: 50%;
+      top: 0;
+      left: 50%;
+    }
+    .category-image-container.four-images img:nth-child(3) {
+      width: 50%;
+      height: 50%;
+      top: 50%;
+      left: 0;
+    }
+    .category-image-container.four-images img:nth-child(4) {
+      width: 50%;
+      height: 50%;
+      top: 50%;
+      left: 50%;
+    }
+    
+    .category-card:hover .category-image-container img {
+        transform: scale(1.05);
+    }
+
+    .category-card-content {
+      padding: 20px 25px;
+      text-align: center;
+      background-color: white;
+      border-top: 1px solid #eee;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .category-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+    }
+
+    .category-item-count {
+      font-size: 1rem;
+      color: #777;
+    }
+
+    @media (max-width: 992px) {
+      header {
+        padding: 15px 30px;
+      }
+      main {
+        padding: 30px;
+      }
+      .page-title {
+        font-size: 2rem;
+      }
+      .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+      }
+      .category-title {
+        font-size: 1.3rem;
+      }
+      .category-item-count {
+        font-size: 0.95rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 20px;
+      }
+      .logo {
+        font-size: 1.5rem;
+      }
+      .more-button {
+        font-size: 1rem;
+      }
+      main {
+        padding: 20px;
+      }
+      .page-title {
+        font-size: 1.8rem;
+      }
+      .category-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .category-title {
+        font-size: 1.2rem;
+      }
+      .category-item-count {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo" onclick="location.href='d_myhome.html'">다시쓰자</div>
+    <button class="more-button">더보기</button>
+  </header>
+
+  <main>
+    <h1 class="page-title">관심 글 저장목록</h1>
+
+    <div class="category-grid">
+
+      <a href="liked_posts_category.html?category=diy" class="category-card">
+        <div class="category-image-container four-images">
+          <img src="assets/d1.png" alt="전체 이미지 1"/>
+          <img src="assets/d2.jpg" alt="전체 이미지 2"/>
+          <img src="assets/d3.jpeg" alt="전체 이미지 3"/>
+          <img src="assets/d4.jpeg" alt="전체 이미지 4"/>
+        </div>
+        <div class="category-card-content">
+          <div class="category-title">전체</div>
+          <div class="category-item-count">총 8개</div>
+        </div>
+      </a>
+
+      <a href="liked_posts_category.html?category=eco" class="category-card">
+        <div class="category-image-container two-images">
+          <img src="assets/d5.jpeg" alt="친환경 이미지 1"/>
+          <img src="assets/d6.jpeg" alt="친환경 이미지 2"/>
+          </div>
+        <div class="category-card-content">
+          <div class="category-title">친환경</div>
+          <div class="category-item-count">총 2개</div>
+        </div>
+      </a>
+
+      <a href="liked_posts_category.html?category=waste" class="category-card">
+        <div class="category-image-container four-images">
+          <img src="assets/d7.jpeg" alt="참고 이미지 1"/>
+          <img src="assets/d8.jpeg" alt="참고 이미지 2"/>
+          <img src="assets/d9.jpeg" alt="참고 이미지 3"/>
+          <img src="assets/d3.jpeg" alt="참고 이미지 4"/>
+        </div>
+        <div class="category-card-content">
+          <div class="category-title">참고</div>
+          <div class="category-item-count">총 4개</div>
+        </div>
+      </a>
+
+      <a href="liked_posts_category.html?category=etc" class="category-card">
+        <div class="category-image-container two-images">
+          <img src="assets/d4.jpeg" alt="꿀팁 이미지 1"/>
+          <img src="assets/d5.jpeg" alt="꿀팁 이미지 2"/>
+          </div>
+        <div class="category-card-content">
+          <div class="category-title">꿀팁</div>
+          <div class="category-item-count">총 2개</div>
+        </div>
+      </a>
+      
+    </div>
+  </main>
+
+  <script>
+    document.querySelector('.logo').addEventListener('click', function() {
+      window.location.href = 'd_myhome.html';
+    });
+
+    document.querySelector('.more-button').addEventListener('click', function() {
+      alert('더보기 기능은 추후 업데이트 예정입니다.');
+    });
+  </script>
+</body>
+</html>
